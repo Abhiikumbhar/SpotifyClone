@@ -11,19 +11,14 @@ const Song = new mongoose.Schema({
         type: String,
         require: true,
     },
-    owner: {
+    track: {
+        type: String,
+        require: true,
+    },
+    artist: {
         type: mongoose.Types.ObjectId,
         ref: "User",
     },
-    songs: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Song",
-    },],
-    collaborator: [{
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-    },],
-
 });
 
 //create a model of Song 
