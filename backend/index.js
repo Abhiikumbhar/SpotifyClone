@@ -5,8 +5,11 @@ const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt; // importing passportJWT for authentication
 const passport = require("passport"); //importing passportJWT for authentication
 const User = require("./models/User");  //importing User module 
+const authRoutes = require("./routes/auth") //importing auth.js
 const app = express();      // to get all the functionality of express into a variable named app
-const port = 8000;          // to listen the request form client on port 8000 
+const port = 8080;          // to listen the request form client on port 8000 
+
+app.use(express.json());
 
 //conneting MONGODB with our node app 
 //STORE THE PASSWORD IN .ENV FILE AND THEN USE PROCESS.ENV.PASSWORD TO ACQUIRE THAT PASSWORD
@@ -53,6 +56,8 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
+
+app.use("/auth", authRoutes);
 
 //tell express that server will run on localhost:8000 
 app.listen(port, ( ) =>{
