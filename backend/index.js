@@ -1,6 +1,10 @@
 const express = require("express"); // to use the expressJS in this file 
 const mongoose = require("mongoose");//req mongoose 
 require("dotenv").config();
+const JwtStrategy = require('passport-jwt').Strategy,
+    ExtractJwt = require('passport-jwt').ExtractJwt; // importing passportJWT for authentication
+const passport = require("passport"); //importing passportJWT for authentication
+const User = require("./models/User");  //importing User module 
 const app = express();      // to get all the functionality of express into a variable named app
 const port = 8000;          // to listen the request form client on port 8000 
 
@@ -16,11 +20,32 @@ mongoose
         }
     )
     .then((x)=> {
-        console.log("CONNNECTED WITH MONGODB!!!");
+        console.log("Connected to the DATABASE!!!");
     })
     .catch((err)=>{
         console.log("Failed to connect with DB!!");
     });
+
+
+//setting passport-JWT for authentication
+
+const opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = process.env.SECRET_KEY;
+passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+    User.findOne({id: jwt_payload.sub}, function(err, user) {
+        if (err) {
+            return done(err, false);
+        }
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+            // or you could create a new account
+        }
+    });
+}));
+
 
 app.get("/", (req, res) => {
     // req contains all data for response
