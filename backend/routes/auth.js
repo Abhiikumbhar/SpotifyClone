@@ -34,4 +34,27 @@ router.post("/register", async (req, res) => {
     return res.status(200).json(userToReturn);
 });
 
+
+router.post("/login", async (req, res) =>{
+    //1.get email, password send by user from in req.body
+    const {email,password} = req.body;
+
+    //2. check whether the email is exist or not , if not the credential are wrong
+    const user = await User.findOne({email: email});
+    if(!user){
+        return res.status(402).json({err:"Invalid Credentials !!"});
+    }
+    //3. if user is exist then check for passwrod, if not the   credential are wrong
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if(!isPasswordValid){
+        return res.status(402).json({err: "Invalid credentials !!"});
+    }
+    //4. if credential are exist then return the token to user 
+    const token = await getToken(user.email, user);
+
+    //return the result to the user
+    const userToReturn = { ...user.toJSON(), token };
+    delete userToReturn.password;
+    return res.status(200).json(userToReturn);
+})
 module.exports = router;
