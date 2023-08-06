@@ -7,6 +7,7 @@ const passport = require("passport"); //importing passportJWT for authentication
 const User = require("./models/User");  //importing User module 
 const authRoutes = require("./routes/auth"); //importing auth.js
 const songRoutes = require("./routes/song"); //importing song.js
+const playlistRoutes = require("./routes/playlist"); //importing playlist.js
 const app = express();      // to get all the functionality of express into a variable named app
 const port = 8080;          // to listen the request form client on port 8000 
 
@@ -60,6 +61,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authRoutes);
 app.use("/song", songRoutes);
+app.use("/playlist", playlistRoutes);
 
 //tell express that server will run on localhost:8000 
 app.listen(port, () => {
