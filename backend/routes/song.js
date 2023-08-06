@@ -12,7 +12,7 @@ router.post(
             return res.status(301).json({ err: "Insufficient data" });
         }
         const artist = req.user._id;
-        const songDetails = { email, thumbnail, track, artist };
+        const songDetails = { name, thumbnail, track, artist };
         const createdSong = await Song.create(songDetails);
         return res.status(200).json(createdSong);
     }
