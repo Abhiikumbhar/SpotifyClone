@@ -35,10 +35,10 @@ router.get(
 
 // route to get all song that any artist has published by the artist id 
 route.get(
-    "/get/artist",
+    "/get/artist/:artistId",
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
-        const { artistId } = req.body;
+        const { artistId } = res.params;
         // while artist does not exist
         const artist = await User.find({ _id: artistId });
         if (!artist) {
@@ -51,10 +51,10 @@ route.get(
 
 //route to get single song by name
 route.get(
-    "/get/name",
+    "/get/songname/:songName",
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
-        const { songName } = req.body;
+        const { songName } = req.params;
         const songs = await Song.find({ name: songName });
         return res.status(200).json({ data: songs });
     }
