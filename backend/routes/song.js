@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require("passport");
 const Song = require("../models/Song");
 const User = require("../models/User");
-const { route } = require("./song");
 
 router.post(
     "/create",
@@ -34,7 +33,7 @@ router.get(
 );
 
 // route to get all song that any artist has published by the artist id 
-route.get(
+router.get(
     "/get/artist/:artistId",
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
@@ -50,7 +49,7 @@ route.get(
 );
 
 //route to get single song by name
-route.get(
+router.get(
     "/get/songname/:songName",
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
