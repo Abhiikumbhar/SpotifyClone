@@ -13,7 +13,7 @@ router.post(
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
         const currentUser = req.user;
-        const { name, thumbnail, songs } = req.nody;
+        const { name, thumbnail, songs } = req.body;
         if (!name || !thumbnail || !songs) {
             return res.send(301).json({ err: "Insufficient Data" });
         }
@@ -25,6 +25,7 @@ router.post(
             collaborators: [],
         };
         const playlist = await Playlist.create(playlistData);
+        return res.status(200).json(playlistData);
     }
 
 );
@@ -50,7 +51,7 @@ router.get(
     "/get/artist/:artistId",
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
-        const artistId = res.params.artistId;
+        const artistId = req.params.artistId;
         const artist = await User.findOne({ _id: artistId });
         if (!artist) {
             return res.status(304).json({ err: "invalid Artist ID" });
