@@ -77,7 +77,7 @@ router.post(
         }
         
         //check if user allowed to add song in playlist 
-        if (playlistId != currentUser._id && !playlist.collaborators.includes(currentUser._id)) {
+        if (!playlist.owner.equals(currentUser._id) && !playlist.collaborators.includes(currentUser._id)) {
             return res.status(400).json({ err: "Not Allowed to add in this playlist" });
         }
 
@@ -88,7 +88,7 @@ router.post(
         }
 
         //add the song in playlist
-        playlist.song.push(songId);
+        playlist.songs.push(songId);
         await playlist.save();
 
         return res.status(200).json(playlist);
