@@ -50,7 +50,6 @@ passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
         }
     });
 }));
-//this is test
 
 app.get("/", (req, res) => {
     // req contains all data for response
