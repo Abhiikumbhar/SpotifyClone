@@ -1,12 +1,13 @@
 // import './App.css';
 import "./output.css";
 import { BrowserRouter, Switch, Route, Routes } from "react-router-dom";
+import LoginComponent from "./routes/Login.js";
 function App() {
   return (
-    <div className="App">
+    <div className="w-screen h-screen">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<div className='bg-blue-500'>name</div>}/>
+          <Route path="/login" element ={ <LoginComponent/>}/>
         </Routes>
       </BrowserRouter>
     </div>
