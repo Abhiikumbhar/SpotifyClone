@@ -5,7 +5,7 @@ const PasswordInput = ({label,placeholder})=>{
         <input 
             type="password" 
             placeholder={placeholder} 
-            className="p-2 border border-gray-400 border-solid rounded placeholder-gray-500"
+            className="p-3 border border-gray-400 border-solid rounded placeholder-gray-500"
             id={label}
         />
     </div>
