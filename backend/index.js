@@ -9,8 +9,10 @@ const authRoutes = require("./routes/auth"); //importing auth.js
 const songRoutes = require("./routes/song"); //importing song.js
 const playlistRoutes = require("./routes/playlist"); //importing playlist.js
 const app = express();      // to get all the functionality of express into a variable named app
-const port = 8080;          // to listen the request form client on port 8000 
+const port = 8080;          // to listen the request form client on port 8000
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.json());
 
 //conneting MONGODB with our node app 
